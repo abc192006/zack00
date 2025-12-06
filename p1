@@ -42,5 +42,19 @@ c[i][j] = a[i][j] + b[i][j];
 }
 }
 System.out.println(&quot;Matrix after addition:&quot;);
-for (int i = 0; i &lt; p; i++)
+for (int i = 0; i < p; i++)
 {
+for (int j = 0; j<n; j++)
+{
+System.out.print(c[i][j]+&quot;&quot;);
+}
+System.out.println(&quot;&quot;);
+}
+}
+else
+{
+System.out.println(&quot;Addition not possible&quot;);
+System.out.println("Try Again");
+}
+}
+}
