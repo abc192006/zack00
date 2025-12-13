@@ -1,0 +1,1136 @@
+Program 1.  Develop a Program in C for the following:
+a)    Declare a calendar as an array of 7 elements (A dynamically Created array) to represent 7 days of a week. Each Element of the array is a structure having three fields. The first field is the name of the Day (A dynamically allocated String), The second field is the date of the Day (A integer), the third field is the description of the activity for a particular day (A dynamically allocated String).
+b)         Write functions create(), read() and display(); to create the calendar, to read the data from the keyboard and to print weeks activity details report on screen
+ 
+ 
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+ 
+struct  Calendar
+{
+    char *name;
+    int date;​
+    char *activity;
+};
+ 
+struct Calendar *C;
+int i;
+ 
+void create( )
+{
+   C=(struct Calendar *)malloc(7* sizeof(struct Calendar));
+}
+ 
+void read( )
+{
+ 
+   char buffer[20];
+   for(i=0;i<7;i++)
+  {
+     printf("\n enter weekday");
+    scanf("%s",buffer);
+    (C+i)->name=(char*)malloc(strlen(buffer)+1);
+    strcpy((C+i)->name,buffer);
+ 
+    printf("\n Enter the date ");
+    scanf("%d", &(C+i)->date);
+ 
+    printf("\n Enter the activity");
+    scanf("%s",buffer);
+    (C+i)->activity=(char*)malloc(strlen(buffer)+1);
+    strcpy((C+i)->activity,buffer);
+  }
+}
+ 
+ 
+void display( )
+{
+  printf("\n Weekly Calendar of Activities\n");
+  printf("--------------------------------------------");
+  printf("\n Date\t\t\t Weekday\t\t\t Activity\n");
+  printf("--------------------------------------------\n");
+  for(i=0;i<7;i++)
+ {
+     printf("\n %d\t\t\t %s\t\t\t %s\n", (C+i)->date,(C+i)->name,(C+i)->activity);
+  }
+}
+ 
+ 
+ 
+void main()
+{
+   create();
+   read();
+   display();
+   free(C);
+   
+}
+ 
+ 
+ 
+ 
+Output:
+enter weekdayMonday
+Enter the date 11
+Enter the activityYoga
+enter weekdayTuesday
+Enter the date 12
+Enter the activityYoga
+enter weekdayWednesday
+Enter the date 13
+Enter the activityHIT
+enter weekdayThursday
+Enter the date 14
+Enter the activityStrengthTraining
+enter weekdayFriday
+Enter the date 15
+Enter the activityWeightTraining
+enter weekdaySaturday
+Enter the date 16
+Enter the activityRest
+enter weekdaySunday
+Enter the date 17
+Enter the activityMarathonRun
+Weekly Calendar of Activities
+-------------------------------------------------------------------------------
+Date​​​ Weekday​​​ Activity
+--------------------------------------------------------------------------------
+ 
+11​​​ Monday​​​ Yoga
+ 
+12​​​ Tuesday​​​ Yoga
+ 
+13​​​ Wednesday​​​ HIT
+ 
+14​​​ Thursday​​​ StrengthTraining
+ 
+15​​​ Friday​​​               WeightTraining
+ 
+16​​​ Saturday​​​ Rest
+ 
+17​​​ Sunday​​​ MarathonRun
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Program 2.Develop a Program in C for the following operations on Strings.
+a.     Read a main String (STR), a Pattern String (PAT) and a Replace   String (REP)
+b.      Perform Pattern Matching Operation: Find and Replace all occurrences of PAT in STR with REP if PAT exists in STR. Report suitable messages in case PAT does not exist in STR
+ 
+Support the program with functions for each of the above operations. Don't use Built-in functions.
+ 
+#include<stdio.h>
+#include<string.h>
+ 
+char str[20], pat[20], rep[20], ans[20];
+int i, j, m, k, flag=0;
+ 
+void stringmatch()
+ 
+{
+      i = m = j = 0;
+    while(str[m] != '\0') 
+   {
+              if(str[m] == pat[i]) // ...... matching
+               {
+                     i++; m++;
+                 if(pat[i] == '\0') //.....found occurrences.
+           {
+                         flag = 1;
+     
+                         for(k = 0; rep[k] != '\0'; k++, j++)
+                                        ans[j] = rep[k];
+                 i = 0;
+               
+              }
+         }
+  else  
+         
+              ans[j++] = str[m++];
+               
+    }   //while end 
+ 
+       ans[j] = '\0';
+}
+void main()
+{
+ 
+       printf("\nEnter a main string \n");
+      gets(str);
+       printf("\nEnter a pattern string \n");
+ 
+      gets(pat);
+    printf("\nEnter a replace string \n");
+   
+      gets(rep);
+    stringmatch();
+    if(flag == 1)
+           printf("\nThe resultant string is\n %s" , ans);
+      else
+            printf("\nPattern string NOT found\n");
+}
+ 
+                     
+Output:
+ 
+Run1
+Enter a main string
+apple is an apple
+Enter a pattern string
+app
+Enter a replace string
+coup
+The resultant string is
+couple is an couple
+Run1
+ 
+Enter a main string
+apple is an apple
+Enter a pattern string
+dfg
+Enter a replace string
+coup
+Pattern string NOT found
+ 
+ 
+ 
+ 
+ 
+Program 3. Design, Develop and Implement a menu driven Program in C for the following operations on STACK of Integers (Array Implementation of Stack with maximum size MAX)
+       a. Push an Element on to Stack
+       b. Pop an Element from Stack
+       c. Demonstrate how Stack can be used to check Palindrome
+       d. Demonstrate Overflow and Underflow situations on Stack
+       e. Display the status of Stack
+       f. Exit Support the program with appropriate functions for each of the above operations.
+ 
+ 
+#include <stdio.h>
+#include<stdlib.h>
+#include<math.h>
+# define maxsize 5
+ 
+int stack[maxsize];
+int top=-1;
+ 
+void push(int item)
+{      
+  if (top==maxsize-1)
+  printf("\nStack Overflow");
+ 
+     else
+                 stack[++top]=item;
+}
+ 
+ 
+int pop()
+{  
+     return stack[top--];
+}
+ 
+ 
+ 
+void display()
+{
+     int i;
+    if(top==-1) 
+           printf("\nStack Underflow");
+    else 
+      {
+          for(i=top;i>=0;i--)
+            printf("\n%d",stack[i]);
+      }
+}
+ 
+ 
+void palindrome()
+{
+   int num,i,rem,rev,temp;;
+   printf("\n Enter a number");
+   scanf("%d",&num);
+   temp=num;
+   while(num!=0)
+           {
+        rem=num%10;
+        push(rem);
+        num=num/10;
+           }
+        rev=0, i=0;
+       while (top!=-1) 
+      {
+               rev=rev+pop()*pow(10,i);
+               i=i+1;
+    }
+     if(temp==rev)
+                printf("\n No is palindrome");
+     else
+                printf("\n No is not a plaidrome");
+}
+ 
+void main()
+{
+     int choice, item;
+     while(1)
+     {
+         printf("\n STACK OPERATIONS\n");
+         printf("\n 1. PUSH");
+         printf("\n 2.POP");
+         printf("\n 3.DISPLAY");
+         printf("\n 4.PALINDROME");
+         printf("\n 5.EXIT");
+         printf("\n \nEnter ypur choice");
+         scanf("%d", &choice);
+         
+         switch(choice)
+         {
+             case 1: printf("\n Enter element  to pushed");
+                 scanf("%d",&item);
+                push(item);
+                        break;
+                  case 2: if(top==-1)
+                              printf("\nStack  Underflow");  
+                        else
+                             printf("\n Element popped %d",pop());
+                        break;
+            case 3: display();
+                        break;
+            case 4: palindrome();
+                      break;
+                case 5:  exit(0);
+ 
+                  default: printf(“Invalid choice”);
+        }   //switch end
+    }//while end    
+}//main end
+ 
+ 
+Output:
+ 
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice1
+Enter element  to pushed11
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice1
+Enter element  to pushed22
+STACK OPERATIONS
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice1
+Enter element  to pushed33
+STACK OPERATIONS
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice1
+Enter element  to pushed44
+ 
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice1
+Enter element  to pushed55
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice1
+Stack Ovreflow
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice3
+55
+44
+33
+22
+11
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice
+2
+Element popped 55
+ 
+ 
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice2
+Element popped 44
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice2
+Element popped 33
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice2
+Element popped 22
+STACK OPERATIONS
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice2
+Element popped 11
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+Enter your choice2
+Stack  Underflow
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice4
+Enter a number1221
+No is palindrome
+STACK OPERATIONS
+ 
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+ 
+Enter your choice
+4
+Enter a number1234
+No is not a plaidrome
+STACK OPERATIONS
+1. PUSH
+2.POP
+3.DISPLAY
+4.PALINDROME
+5.EXIT
+Enter your choice
+5
+Program 4. Develop a Program in C for converting an Infix Expression to Postfix Expression. Program should support for both parenthesized and free parenthesized expressions with the operators: +,-,*,/,%(Remainder),^(Power) and alphanumeric operands.
+ 
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include<math.h>
+ 
+char stack[20];
+int top=-1;
+ 
+ 
+void push(int item)
+{
+    stack[++top]=item;
+}
+ 
+ 
+int pop()
+{
+   return stack[top--];
+}
+ 
+ 
+int priority(char c)
+{
+   switch(c)
+   {
+       case '^':
+       case '$':return 3;
+       
+       case '*':
+       case '/':
+       case '%':return 2;
+       
+       case '+':
+       case '-':return 1;
+ 
+      case ‘(’: return -1;
+   }
+}
+ 
+void infixtopostfix()
+{
+ char infix[20],postfix[20];
+ int i=0,j=0;
+ printf("\n Enter infix expression\n");
+ gets(infix);
+ 
+ for(i=0;infix[i]!='\0';i++)
+ {
+     if(isalpha(infix[i]))
+          postfix[j++]=infix[i];
+         
+     else if(infix[i]=='(')
+          push(infix[i]);
+         
+     else if(infix[i]==')')
+           {
+                while(stack[top]!='(')
+                     postfix[j++]=pop();
+                pop();
+           }
+ 
+     else if(  priority(infix[i])  >   priority(stack[top])))
+                  push(infix[i]);
+ 
+     else
+           {
+                  postfix[j++]=pop();
+                  push(infix[i]);
+           }
+ }
+ while(top!=-1)
+             postfix[j++]=pop();
+ 
+   postfix[j]='\0';
+   printf("\n\n Postfix %s",postfix);
+}
+ 
+void main()
+{
+     infixtopostfix();
+ 
+}
+ 
+Output:
+ 
+Enter infix expression
+((a+b)*c^d)
+ 
+Postfix ab+cd^*
+ 
+ 
+ 
+Program 5.Design,Develop and Implement a Program in C for he following Stack Applications:
+a. Evaluation of Suffix expression with single digit operands
+and operators:+,-,*,/,%,^
+ b.Solving Tower of  Hanoi problem with n disks.
+ 
+a.EvaluationofSuffixexpressionwithsingledigitoperandsandoperators:+,-,*,/,%,^
+ 
+ 
+#include <stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include <math.h>
+ 
+void postfixeval();
+ 
+int stack[20];
+int  top =-1;
+char postfix[20];
+ 
+void push(int item)
+{​​
+       stack[++top]=item;
+}
+ 
+int pop()
+{​​
+      return(stack[top --]);
+}
+ 
+ 
+void postfixeval( )
+{
+     int i=0,op1,op2,result;
+    printf("\n\nEnter the postfix Expression:");
+      scanf("%s",postfix);
+ 
+      for(i=0;postfix[i]!='\0';i++)
+   { 
+           if(isdigit(postfix[i]))
+                      push(postfix[i]-'0');
+         else
+        {​
+              op2=pop();
+               op1=pop();
+                switch(postfix[i])
+            {
+                    case'+':push(op1+op2);
+                                     break;
+                    case '-':push(op1-op2);
+                                  break;
+                     case'*':push(op1*op2);
+                                  break;
+                       case'/':push(op1/op2);
+                                  break;
+                      case'%':push(op1%op2);
+                                     break;
+                    case'^':push(pow(op1,op2));
+                                  break;
+             }  //switch end
+      }   //  else end
+ }    //for end
+       printf("\n Given sufffix Expression n: %s\n", postfix);
+        printf("\nResult after Evaluation:%d\n",stack[top]);
+}
+ 
+ 
+void  main()
+{
+     postfixeval();
+   
+}
+ 
+Output:
+Enter the postfix Expression: 62+5*
+62+5*
+Given sufffix Expression n: 62+5*
+ 
+Result after Evaluation:40
+ b.Solving Tower of  Hanoi problem with n disks.
+ 
+ 
+#include <stdio.h>
+ 
+void towerOfHanoi(int, char, char, char);
+ 
+void main()
+{
+​int n; // Number of disks
+​printf("Enter number of disks\n");
+​scanf("%d", &n);
+​towerohanoi(n, 'S', 'D', 'T');
+}
+ 
+// C recursive function to solve tower of hanoi puzzle
+ 
+ 
+void towerofhanoi(int n, char source, char dest, char temp)
+{
+​if (n == 1)
+​{
+​​printf("\n Move disk 1 from %c to %c", source, dest);
+​​return;
+​}
+​towerofhanoi(n-1, source, temp, dest);
+​printf("\n Move disk %d from %c to %c", n, source, dest);
+​towerofhanoi(n-1, temp, dest, source);
+}
+ 
+Output:
+ 
+Enter number of disks
+3
+Move disk 1 from S to D
+Move disk 2 from S to T
+Move disk 1 from D to T
+Move disk 3 from S to D
+Move disk 1 from T to S
+Move disk 2 from T to D
+Move disk 1 from S to D
+ 
+ 
+ 
+ 
+Program 6. Develop a menu driven Program in C for the following operations on Circular
+                       QUEUE of Characters (Array Implementation of Queue with maximum size MAX) 
+a. Insert an Element onto Circular QUEUE
+b. Delete an Element from Circular QUEUE
+c. Demonstrate Overflow and Underflow situations on CircularQUEUE
+d. Display the status of Circular QUEUE
+e. Exit
+Support the program with appropriate functions for each of the above operations
+ 
+ 
+#include<stdio.h>
+#include<stdlib.h>
+#define  maxsize 5
+ 
+char cq[maxsize];
+int front,rear;
+ 
+void insert(char item)
+{
+   if (front==(rear+1)% maxsize)
+        printf("\n\n  CIRCULAR QUEUE FULL\n");
+ 
+ 
+   else
+  {
+       if(front==-1)   //First element insertion
+             front=rear=0;
+      else
+             rear=(rear+1)%maxsize;
+ 
+      cq[rear]=item;
+     printf("\nRear=%d​Front= %d\n",rear,front);
+    }
+}
+ 
+ 
+void delete()
+{
+    if((front==-1))
+         printf("\n CIRCULAR QUEUE  EMPTY\n");
+    else
+   {
+        printf("\nDELETED  ELEMENT  FROM  QUEUE  IS:%c\n", cq[front]);
+         cq[front]= ‘-‘;
+               
+               front=(front+1)%maxsize;
+          printf("\nRear = %d​Front = %d \n",rear,front);
+          }
+}
+ 
+void display()
+{
+   int i;
+   if((front==-1))
+       printf("QUEUE  EMPTY\n");
+    else
+   {
+       printf("The  Queue  Elements   are\n");
+       for(i=0;i<maxsize;i++)
+              printf("%c \t",cq[i]);
+       printf("\nRear = %d​Front = %d \n",rear,front);
+   }
+}
+ 
+void  main( )
+{
+​   int choice; 
+          char item ;
+​   front=-1; rear=-1; 
+ ​  while(1)
+ ​  {
+       printf("\n\n-------QUEUE MENU​\n");
+       printf("\n1.INSERT INTO QUEUE”);
+       printf(“\n2.DELETEF FROM QUEUE”);
+       printf(“\n3.DISPLAY QUEUE”);
+       printf(“\n4.EXIT”);
+ 
+       printf("\n\n  ENTER YOUR CHOICE:");
+       scanf("%d",&choice);
+ 
+      switch(choice)
+       {
+          ​ case 1:printf("\nENTER THEQUEUE ELEMENT:");
+                           scanf(" %c",&item);
+                           insert(item);
+                          break;
+ 
+           ​case 2:​delete();
+                          break;
+ 
+          ​ case 3:display();
+                           break;
+ 
+          ​ case 4:exit(0);
+ 
+            default:printf("\nInvalidChoice.\n");
+     }
+  }
+}
+ 
+Output:
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:1
+ENTER THE QUEUE ELEMENT:A
+Rear=0​Front= 0
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:1
+ENTER THE QUEUE ELEMENT:B
+Rear=1​Front= 0
+ 
+ 
+-------QUEUE MENU​
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:1
+ENTER THE QUEUE ELEMENT:C
+Rear=2    Front= 0
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:1
+ENTER THE QUEUE ELEMENT:D
+Rear=3​Front= 0
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:1
+ENTER THE QUEUE ELEMENT:E
+Rear=4​Front= 0
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+1
+ENTER THE QUEUE ELEMENT:F
+CIRCULAR QUEUE FULL
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+3
+ 
+The Queue Elementsare
+A​    B ​ C​D​E​
+Rear = 4​Front = 0
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+2
+DELETED ELEMENT FROM QUEUEIS:A
+ 
+Rear = 4​Front = 1
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+2
+DELETED ELEMENT FROM QUEUEIS:B
+ 
+Rear = 4​Front = 2
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+3
+ 
+The Queue Elementsare
+-​   - ​ C​D​E​
+Rear = 4​Front = 0
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+ 
+1
+ENTER THE QUEUE ELEMENT:F
+Rear=0​Front= 2
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ENTER YOUR CHOICE:
+3
+ 
+The Queue Elementsare
+F​-​C​D​E​
+Rear = 0​Front = 2
+ 
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+1
+ENTER THE QUEUE ELEMENT:C
+Rear=1​Front= 2
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+1
+ENTER THE QUEUE ELEMENT:G
+ 
+CIRCULAR QUEUE FULL
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE: 1
+ 
+ 
+ENTER THE QUEUE ELEMENT:H
+ 
+ CIRCULAR QUEUE FULL
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+3
+ 
+The Queue Elementsare
+F​  G​H​D​E​
+Rear = 1​Front = 2
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ENTER YOUR CHOICE:
+2
+DELETED ELEMENT FROM QUEUEIS:D
+ 
+Rear = 1​Front = 3
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ENTER YOUR CHOICE:
+2
+DELETED ELEMENT FROM QUEUEIS:E
+ 
+Rear = 1​Front = 4
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ENTER YOUR CHOICE:
+2
+DELETED ELEMENT FROM QUEUEIS:F
+ 
+Rear = 1​Front = 0
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ENTER YOUR CHOICE:
+2
+ 
+DELETED ELEMENT FROM QUEUEIS:G
+ 
+Rear = 1​Front = 1
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:2
+ 
+DELETED ELEMENT FROM QUEUEIS:H
+ 
+Rear = -1​Front = -1
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:2
+ 
+CIRCULAR QUEUE  EMPTY
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+-------QUEUE MENU​
+ 
+1.INSERT INTO QUEUE
+2.DELETE FROM QUEUE
+3.DISPLAY QUEUE
+4. EXIT
+ 
+ 
+ENTER YOUR CHOICE:
+4
+ 
+ 
+ 
+ 
